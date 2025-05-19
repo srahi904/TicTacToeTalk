@@ -1,0 +1,25 @@
+/** @format */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-gradient-radial from-primary/10 via-secondary/10 to-background min-h-screen;
+  font-family: "Inter", sans-serif;
+}
+
+/* Glassmorphism for cards */
+.glass {
+  @apply bg-glass backdrop-blur-md shadow-glass border border-white/40;
+}
+
+/* Cell Animations */
+.cell-animation-x {
+  animation: pop 0.3s cubic-bezier(0.36, 1.61, 0.58, 1);
+  background: linear-gradient(135deg, #2563eb22 0%, #06b6d422 100%);
+}
+.cell-animation-o {
+  animation: pop 0.3s cubic-bezier(0.36, 1.61, 0.58, 1);
+  background: linear-gradient(135deg, #06b6d422 0%, #a78bfa22 100%);
+}
