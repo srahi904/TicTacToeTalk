@@ -1,6 +1,7 @@
 /** @format */
 
 import { FaGithub, FaTwitter, FaLinkedin } from "react-icons/fa";
+import { FaX, FaXTwitter } from "react-icons/fa6";
 
 export default function Footer() {
   return (
@@ -15,7 +16,7 @@ export default function Footer() {
         </p>
         <div className="flex gap-3">
           <a
-            href="https://github.com/yourusername"
+            href="https://github.com/srahi904"
             target="_blank"
             rel="noopener noreferrer"
             className="group rounded-full bg-white/70 dark:bg-navy/80 p-2 transition-all duration-200 shadow hover:scale-110 hover:bg-primary hover:text-white dark:hover:bg-lavender dark:hover:text-navy"
@@ -24,16 +25,17 @@ export default function Footer() {
             <FaGithub className="h-6 w-6" />
           </a>
           <a
-            href="https://twitter.com/yourusername"
+            href="https://x.com/srahi904"
             target="_blank"
             rel="noopener noreferrer"
             className="group rounded-full bg-white/70 dark:bg-navy/80 p-2 transition-all duration-200 shadow hover:scale-110 hover:bg-primary hover:text-white dark:hover:bg-lavender dark:hover:text-navy"
             aria-label="Twitter"
           >
-            <FaTwitter className="h-6 w-6" />
+            <FaXTwitter className="h-6 w-6" />
           </a>
+
           <a
-            href="https://linkedin.com/in/yourusername"
+            href="https://www.linkedin.com/in/srahi904/"
             target="_blank"
             rel="noopener noreferrer"
             className="group rounded-full bg-white/70 dark:bg-navy/80 p-2 transition-all duration-200 shadow hover:scale-110 hover:bg-primary hover:text-white dark:hover:bg-lavender dark:hover:text-navy"
