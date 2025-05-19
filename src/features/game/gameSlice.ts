@@ -76,7 +76,7 @@ export const createNewGame = createAsyncThunk<
     const initialGameData = {
       board: Array(9).fill(""),
       currentTurn: "X" as PlayerSymbol,
-      winner: "",
+      winner: "" as PlayerSymbol | "draw" | "",
       players: { X: null, O: null },
       createdAt: Date.now(),
     };

@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "@/store";
@@ -93,7 +93,7 @@ export default function Game() {
         dispatch(setLocalPlayerRole(assignedRole));
         dispatch(setGameLoading(false));
       },
-      (err) => {
+      (_err) => {
         dispatch(setGameError("Failed to connect to game."));
         dispatch(setGameLoading(false));
       }
@@ -123,9 +123,7 @@ export default function Game() {
       return;
     }
     try {
-      await dispatch(
-        makeMove({ gameId, board, player: localPlayerRole, position: idx })
-      ).unwrap();
+      await dispatch(makeMove({ gameId, position: idx })).unwrap();
     } catch (err: any) {
       dispatch(setGameError(err.message || "Move failed"));
     }

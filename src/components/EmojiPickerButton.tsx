@@ -1,15 +1,14 @@
 /** @format */
 
-import React, { useState, useRef, useEffect } from "react";
-import EmojiPicker, { EmojiClickData, Theme } from "emoji-picker-react";
+import { useState, useRef, useEffect } from "react";
+import type { FC } from "react";
+import EmojiPicker, { EmojiClickData, Theme, EmojiStyle } from "emoji-picker-react";
 
 interface EmojiPickerButtonProps {
   onEmojiSelect: (emoji: string) => void;
 }
 
-const EmojiPickerButton: React.FC<EmojiPickerButtonProps> = ({
-  onEmojiSelect,
-}) => {
+const EmojiPickerButton: FC<EmojiPickerButtonProps> = ({ onEmojiSelect }) => {
   const [showPicker, setShowPicker] = useState(false);
   const pickerRef = useRef<HTMLDivElement>(null);
 
@@ -19,14 +18,12 @@ const EmojiPickerButton: React.FC<EmojiPickerButtonProps> = ({
   };
 
   useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (
-        pickerRef.current &&
-        !pickerRef.current.contains(event.target as Node)
-      ) {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (pickerRef.current && !pickerRef.current.contains(event.target as Node)) {
         setShowPicker(false);
       }
-    }
+    };
+
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
@@ -47,7 +44,7 @@ const EmojiPickerButton: React.FC<EmojiPickerButtonProps> = ({
             onEmojiClick={handleEmojiClick}
             autoFocusSearch={false}
             theme={Theme.LIGHT}
-            emojiStyle="native"
+            emojiStyle={EmojiStyle.NATIVE}
             height={350}
             width={300}
           />
