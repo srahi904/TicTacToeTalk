@@ -88,7 +88,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ gameId, localPlayerRole }) => {
 
   return (
     <motion.div
-      className="w-full max-w-md h-96 flex flex-col p-4 rounded-2xl bg-surface border border-gray-200 shadow-xl glass animate-fade-in"
+      className="w-full max-w-md h-[500px] flex flex-col p-4 rounded-2xl bg-surface border border-gray-200 shadow-xl glass animate-fade-in"
       initial={{ x: 30, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
       transition={{ delay: 0.3 }}

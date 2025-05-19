@@ -144,7 +144,7 @@ export default function Game() {
 
   if (gameNotFound) {
     return (
-      <div className="min-h-screen bg-background flex flex-col items-center justify-center text-center px-4">
+      <div className=" pt-24 min-h-screen bg-background flex flex-col items-center justify-center text-center px-4">
         <motion.h2
           className="text-3xl font-bold text-accent mb-4"
           initial={{ scale: 0.9, opacity: 0 }}
