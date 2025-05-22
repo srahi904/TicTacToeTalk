@@ -37,6 +37,9 @@ export default {
           cloud: "#e0e7ff",
         },
 
+        spectator: "#e9d5ff", // Light mode spectator msg bg
+        "dm-spectator": "#2a1a3a",
+
         // Glass overlays
         glass: {
           light: "rgba(255,255,255,0.35)",

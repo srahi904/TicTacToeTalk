@@ -88,43 +88,60 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ gameId, localPlayerRole }) => {
 
   return (
     <motion.div
-      // ChatWindow also uses 'glass' class for its background
-      className="w-full max-w-md h-[500px] flex flex-col p-4 rounded-2xl shadow-xl glass animate-fade-in transition-smooth" // Added transition-smooth
+      className="w-full max-w-md h-[500px] flex flex-col p-4 rounded-2xl bg-surface border border-gray-200 shadow-xl glass animate-fade-in dark:bg-dm-surface dark:border-dm-muted"
       initial={{ x: 30, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
       transition={{ delay: 0.3 }}
     >
-      <h3 className="text-xl font-bold text-primary dark:text-dm-primary mb-3 border-b border-gray-300 dark:border-dm-muted pb-2 transition-smooth">
+      <h3 className="text-xl font-bold text-primary dark:text-dm-primary mb-3 border-b border-gray-300 dark:border-dm-muted pb-2">
         Game Chat
       </h3>
 
       <div className="flex-grow overflow-y-auto space-y-3 pr-1 mb-3">
-        {messages.map((msg) => (
-          <div
-            key={msg.id}
-            className={`flex ${
-              msg.senderId === playerId ? "justify-end" : "justify-start"
-            }`}
-          >
+        {messages.map((msg) => {
+          const isSpectator = msg.senderRole === "spectator";
+          const isCurrentUser = msg.senderId === playerId;
+
+          return (
             <div
-              className={`px-4 py-2 flex gap-2 justify-between items-center flex-wrap rounded-2xl shadow-md text-sm max-w-[80%] break-words overflow-hidden transition-smooth ${
-                msg.senderId === playerId
-                  ? "bg-primary text-white dark:bg-dm-primary dark:text-textLight rounded-br-none"
-                  : "bg-gray-200 text-gray-800 dark:bg-dm-surface dark:text-dm-text rounded-bl-none"
+              key={msg.id}
+              className={`flex ${
+                isCurrentUser ? "justify-end" : "justify-start"
               }`}
             >
-              <p className="whitespace-pre-wrap break-words break-all">
-                {msg.text.trim()}
-              </p>
-              <p className="text-[10px] opacity-60 dark:opacity-70 text-right mt-1">
-                {new Date(msg.timestamp).toLocaleTimeString([], {
-                  hour: "2-digit",
-                  minute: "2-digit",
-                })}
-              </p>
+              <div
+                className={`px-4 py-2 flex gap-2 justify-between items-center flex-wrap rounded-2xl shadow-md text-sm max-w-[80%] break-words overflow-hidden transition-smooth
+                  ${
+                    isCurrentUser
+                      ? "bg-primary text-white dark:bg-dm-primary dark:text-textLight rounded-br-none"
+                      : isSpectator
+                      ? "bg-spectator dark:bg-dm-spectator text-purple-900 dark:text-purple-200 border border-purple-300 dark:border-purple-800 rounded-bl-none"
+                      : "bg-gray-200 text-gray-800 dark:bg-dm-surface dark:text-dm-text rounded-bl-none"
+                  }
+                `}
+              >
+                <div className="flex items-center gap-2">
+                  {/* Show "Spectator" badge for everyone except the spectator themselves */}
+                  {isSpectator &&
+                    !(isCurrentUser && localPlayerRole === "spectator") && (
+                      <span className="text-xs font-medium text-purple-600 dark:text-purple-300 flex items-center gap-1">
+                        👁 Spectator
+                      </span>
+                    )}
+                  <p className="whitespace-pre-wrap break-words break-all">
+                    {msg.text.trim()}
+                  </p>
+                </div>
+                <p className="text-[10px] opacity-60 dark:opacity-70 text-right mt-1">
+                  {new Date(msg.timestamp).toLocaleTimeString([], {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })}
+                </p>
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
         <div ref={messagesEndRef} />
       </div>
 
@@ -137,7 +154,9 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ gameId, localPlayerRole }) => {
           type="text"
           value={newMessage}
           onChange={(e) => setNewMessage(e.target.value)}
-          placeholder="Type a message..."
+          placeholder={`Type a message...${
+            localPlayerRole === "spectator" ? " (Spectator)" : ""
+          }`}
           className="flex-grow px-3 py-2 rounded-xl bg-white dark:bg-dm-base border border-gray-300 dark:border-dm-muted focus:outline-none focus:ring-2 focus:ring-primary dark:focus:ring-dm-primary text-sm text-textDark dark:text-dm-text transition-smooth"
         />
         <button
