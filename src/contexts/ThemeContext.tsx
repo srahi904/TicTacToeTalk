@@ -28,8 +28,8 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({
     // Default to system preference if available, otherwise light
     return window.matchMedia &&
       window.matchMedia("(prefers-color-scheme: dark)").matches
-      ? "dark"
-      : "light";
+      ? "light"
+      : "dark";
   });
 
   useEffect(() => {
