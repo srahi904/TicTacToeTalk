@@ -64,7 +64,7 @@ export default function Home() {
             Tic Tac Toe Online
           </span>
         </h1>
-        <p className="pt-2 text-lg md:text-xl text-gray-600 dark:text-dm-muted font-medium">
+        <p className="pt-2 text-lg md:text-xl text-gray-600 dark:text-gray-700 font-medium">
           Tic. Tac. Talk. Play the game, drop the emojis!
           <br />
           Play with friends in real-time!
