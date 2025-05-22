@@ -23,26 +23,31 @@ const Board: React.FC<BoardProps> = ({
 }) => {
   const getCellClasses = (cell: CellState) => {
     let classes =
-      "h-20 w-20 md:h-28 md:w-28 text-5xl md:text-6xl font-extrabold rounded-xl flex items-center justify-center shadow-inner transition-all duration-150 ease-in-out select-none";
-    if (cell === "X") classes += " text-primary cell-animation-x";
-    else if (cell === "O") classes += " text-secondary cell-animation-o";
+      "h-20 w-20 md:h-28 md:w-28 text-5xl md:text-6xl font-extrabold rounded-xl flex items-center justify-center shadow-inner select-none transition-smooth";
+
+    if (cell === "X")
+      classes += " text-primary dark:text-aesthetic-sunrise cell-animation-x";
+    else if (cell === "O")
+      classes += " text-secondary dark:text-dm-secondary cell-animation-o";
     else {
-      classes += " text-gray-400 bg-white/70";
+      classes +=
+        " text-gray-400 dark:text-dm-muted bg-white/40 dark:bg-dm-surface/30"; //
       if (
         !disabled &&
         localPlayerRole !== "spectator" &&
         currentTurn === localPlayerRole &&
         !winner
       )
-        classes += " hover:bg-primary/10 cursor-pointer";
-      else classes += " cursor-not-allowed";
+        classes +=
+          " hover:bg-primary/10 dark:hover:bg-dm-primary/20 cursor-pointer";
+      else classes += " cursor-not-allowed opacity-70 dark:opacity-60";
     }
     return classes;
   };
 
   return (
     <motion.div
-      className="grid grid-cols-3 gap-4 w-[300px] h-[300px] md:w-[340px] md:h-[340px] border-4 border-primary rounded-2xl p-3 bg-surface shadow-2xl glass animate-fade-in"
+      className="grid grid-cols-3 gap-4 w-[300px] h-[300px] md:w-[400px] md:h-[400px] border-4 border-primary dark:border-dm-primary rounded-2xl p-3 shadow-2xl glass animate-fade-in transition-smooth"
       initial={{ scale: 0.95, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       transition={{ type: "spring", stiffness: 150, damping: 18 }}

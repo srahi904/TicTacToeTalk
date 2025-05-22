@@ -88,12 +88,13 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ gameId, localPlayerRole }) => {
 
   return (
     <motion.div
-      className="w-full max-w-md h-[500px] flex flex-col p-4 rounded-2xl bg-surface border border-gray-200 shadow-xl glass animate-fade-in"
+      // ChatWindow also uses 'glass' class for its background
+      className="w-full max-w-md h-[500px] flex flex-col p-4 rounded-2xl shadow-xl glass animate-fade-in transition-smooth" // Added transition-smooth
       initial={{ x: 30, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
       transition={{ delay: 0.3 }}
     >
-      <h3 className="text-xl font-bold text-primary mb-3 border-b border-gray-300 pb-2">
+      <h3 className="text-xl font-bold text-primary dark:text-dm-primary mb-3 border-b border-gray-300 dark:border-dm-muted pb-2 transition-smooth">
         Game Chat
       </h3>
 
@@ -106,17 +107,16 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ gameId, localPlayerRole }) => {
             }`}
           >
             <div
-              className={`px-4 py-2 flex gap-2 justify-between items-center flex-wrap rounded-2xl shadow-md text-sm max-w-[80%] break-words overflow-hidden ${
+              className={`px-4 py-2 flex gap-2 justify-between items-center flex-wrap rounded-2xl shadow-md text-sm max-w-[80%] break-words overflow-hidden transition-smooth ${
                 msg.senderId === playerId
-                  ? "bg-primary text-white rounded-br-none"
-                  : "bg-gray-200 text-gray-800 rounded-bl-none"
+                  ? "bg-primary text-white dark:bg-dm-primary dark:text-textLight rounded-br-none"
+                  : "bg-gray-200 text-gray-800 dark:bg-dm-surface dark:text-dm-text rounded-bl-none"
               }`}
             >
               <p className="whitespace-pre-wrap break-words break-all">
                 {msg.text.trim()}
               </p>
-
-              <p className="text-[10px] opacity-60 text-right mt-1">
+              <p className="text-[10px] opacity-60 dark:opacity-70 text-right mt-1">
                 {new Date(msg.timestamp).toLocaleTimeString([], {
                   hour: "2-digit",
                   minute: "2-digit",
@@ -130,7 +130,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ gameId, localPlayerRole }) => {
 
       <form
         onSubmit={handleSendMessage}
-        className="flex items-center gap-2 border-t border-gray-200 pt-3"
+        className="flex items-center gap-2 border-t border-gray-200 dark:border-dm-muted pt-3 transition-smooth"
       >
         <EmojiPickerButton onEmojiSelect={handleEmojiSelect} />
         <input
@@ -138,11 +138,11 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ gameId, localPlayerRole }) => {
           value={newMessage}
           onChange={(e) => setNewMessage(e.target.value)}
           placeholder="Type a message..."
-          className="flex-grow px-3 py-2 rounded-xl bg-white border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary text-sm"
+          className="flex-grow px-3 py-2 rounded-xl bg-white dark:bg-dm-base border border-gray-300 dark:border-dm-muted focus:outline-none focus:ring-2 focus:ring-primary dark:focus:ring-dm-primary text-sm text-textDark dark:text-dm-text transition-smooth"
         />
         <button
           type="submit"
-          className="bg-primary hover:bg-blue-600 text-white px-4 py-2 rounded-xl font-semibold text-sm transition"
+          className="bg-primary hover:bg-blue-600 dark:bg-dm-primary dark:hover:bg-dm-primary/80 text-white dark:text-textLight px-4 py-2 rounded-xl font-semibold text-sm transition-smooth"
         >
           Send
         </button>

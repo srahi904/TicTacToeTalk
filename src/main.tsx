@@ -2,17 +2,20 @@
 
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter } from "react-router-dom";
-import { Provider } from "react-redux";
-import { store } from "./store";
 import App from "./App";
-import "./index.css";
+import "./index.css"; // Your global styles
+import { Provider } from "react-redux";
+import { store } from "./store"; // Assuming your store setup
+import { BrowserRouter } from "react-router-dom";
+import { ThemeProvider } from "./contexts/ThemeContext"; // Import ThemeProvider
 
-ReactDOM.createRoot(document.getElementById("root")!).render(
+ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
-        <App />
+        <ThemeProvider>
+          <App />
+        </ThemeProvider>
       </BrowserRouter>
     </Provider>
   </React.StrictMode>

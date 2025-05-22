@@ -1,25 +1,111 @@
 /** @format */
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-body {
-  @apply bg-gradient-radial from-primary/10 via-secondary/10 to-background min-h-screen;
-  font-family: "Inter", sans-serif;
+:root {
+  /* Light mode variables */
+  --color-bg-base-light: #f8fafc;
+  --color-bg-surface-light: rgba(255, 255, 255, 0.85);
+  --color-text-primary-light: #0f172a;
+  --color-text-secondary-light: #64748b;
+
+  /* Dark mode variables */
+  --color-bg-base-dark: #0a0a0a;
+  --color-bg-surface-dark: #1a1a1a; /* Base for dark surfaces if not glass */
+  --color-text-primary-dark: #e5e7eb;
+  --color-text-secondary-dark: #9ca3af;
 }
 
-/* Glassmorphism for cards */
+body {
+  /* Light mode linear gradient background */
+  @apply bg-gradient-to-br from-primary/10 via-white/50 to-secondary/10 min-h-screen;
+  @apply text-textDark;
+  font-family: "Inter", sans-serif;
+  /* Apply transition to background and text color for theme switch */
+  transition-property: background, color;
+  transition-duration: 300ms;
+  transition-timing-function: ease-in-out;
+}
+
+.dark body {
+  /* Dark mode linear gradient background */
+  @apply bg-gradient-to-br from-dm-primary/20 via-dm-base/60 to-dm-secondary/20; /* Adjusted for better dark glass visibility */
+  @apply text-dm-text;
+}
+
+/* Glassmorphism effects */
 .glass {
-  @apply bg-glass backdrop-blur-md shadow-glass border border-white/40;
+  /* Common properties for glass effect */
+  @apply backdrop-blur-lg shadow-glass border; /* Increased blur */
+
+  /* Light mode specific glass styling */
+  @apply bg-glass-light border-white/30;
+  transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out,
+    box-shadow 0.3s ease-in-out;
+}
+
+.dark .glass {
+  /* Dark mode specific glass styling */
+  /* Ensures the background is semi-transparent to see the blurred body gradient */
+  @apply bg-dm-surface/50 border-dm-muted/40 shadow-glass-dark;
+  /* Example: using a slightly more transparent version of dm.surface or a dedicated glass color for dark mode */
+  /* Or use the tailwind.config.js definition: @apply bg-glass-dark border-dm-muted/30; */
+  /* Ensure bg-glass-dark is like rgba(26, 26, 26, 0.5) or rgba(40, 40, 40, 0.6) for better effect */
 }
 
 /* Cell Animations */
 .cell-animation-x {
   animation: pop 0.3s cubic-bezier(0.36, 1.61, 0.58, 1);
-  background: linear-gradient(135deg, #2563eb22 0%, #06b6d422 100%);
+  background: linear-gradient(
+    135deg,
+    theme("colors.primary / 15%") 0%,
+    theme("colors.secondary / 15%") 100%
+  );
 }
+.dark .cell-animation-x {
+  background: linear-gradient(
+    135deg,
+    theme("colors.dm.primary / 15%") 0%,
+    theme("colors.dm.secondary / 15%") 100%
+  );
+}
+
 .cell-animation-o {
   animation: pop 0.3s cubic-bezier(0.36, 1.61, 0.58, 1);
-  background: linear-gradient(135deg, #06b6d422 0%, #a78bfa22 100%);
+  /* Assuming some other theme colors for O, e.g., a teal/cyan combined with secondary */
+  background: linear-gradient(
+    135deg,
+    theme("colors.secondary / 15%") 0%,
+    theme("colors.accent / 15%") 100%
+  );
+}
+.dark .cell-animation-o {
+  background: linear-gradient(
+    135deg,
+    theme("colors.dm.secondary / 15%") 0%,
+    theme("colors.dm.accent / 15%") 100%
+  );
+}
+
+@layer utilities {
+  /* Ensuring all elements with changing colors/backgrounds can transition */
+  .transition-smooth {
+    @apply transition-all duration-300 ease-in-out;
+  }
+}
+
+/* Scrollbar styling (optional) */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-primary/30 dark:bg-dm-primary/30 rounded-full transition-smooth;
+}
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-primary/50 dark:bg-dm-primary/50;
 }
